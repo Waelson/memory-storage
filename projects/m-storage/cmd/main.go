@@ -6,7 +6,6 @@ import (
 	"flag"
 	"fmt"
 	"github.com/Waelson/memory-storage/m-storage/internal/resp"
-	"github.com/Waelson/memory-storage/m-storage/internal/response"
 	"github.com/Waelson/memory-storage/m-storage/internal/server"
 	"io/ioutil"
 	"log"
@@ -95,7 +94,7 @@ func startSecureServer(svr *server.MStorageServer, port, certPath, keyPath, caCe
 			log.Printf("TLS connection error: %v", err)
 			continue
 		}
-		go response.HandleRESP(conn, svr)
+		go resp.HandleRESP(conn, svr)
 	}
 }
 
