@@ -17,17 +17,131 @@ M-Storage é um servidor Redis-like desenvolvido com **Golang**. Este projeto fo
 
 ---
 
-## 📖 Comandos Suportados
-
-Aqui está a lista dos comandos atualmente suportados, com detalhes sobre cada um:
+## 📖 Comandos suportados
 
 ### `PING`
 - **Descrição**: Testa a conectividade com o servidor.
 - **Uso**:
   ```plaintext
   PING
+  ```
+- **Resposta**:
+    - `+PONG` se bem-sucedido.
+    - Retorna um argumento opcional, se fornecido:
+      ```plaintext
+      PING "Hello"
+      +Hello
+      ```
 
-## 📂 Estrutura de Diretórios
+---
+
+### `SET`
+- **Descrição**: Armazena uma chave com um valor e um tempo de expiração.
+- **Uso**:
+  ```plaintext
+  SET key value ttl
+  ```
+- **Parâmetros**:
+    - `key`: A chave para armazenar o valor.
+    - `value`: O valor a ser armazenado.
+    - `ttl`: Tempo de expiração em segundos.
+- **Resposta**:
+    - `+OK` se bem-sucedido.
+
+---
+
+### `GET`
+- **Descrição**: Recupera o valor de uma chave.
+- **Uso**:
+  ```plaintext
+  GET key
+  ```
+- **Resposta**:
+    - O valor associado à chave ou `$-1` se não encontrado.
+
+---
+
+### `DEL`
+- **Descrição**: Remove uma chave do armazenamento.
+- **Uso**:
+  ```plaintext
+  DEL key
+  ```
+- **Resposta**:
+    - `:1` se a chave foi removida.
+    - `:0` se a chave não existe.
+
+---
+
+### `EXISTS`
+- **Descrição**: Verifica se uma chave existe.
+- **Uso**:
+  ```plaintext
+  EXISTS key
+  ```
+- **Resposta**:
+    - `:1` se a chave existe.
+    - `:0` se não existe.
+
+---
+
+### `EXPIRE`
+- **Descrição**: Define um tempo de expiração (em segundos) para uma chave existente.
+- **Uso**:
+  ```plaintext
+  EXPIRE key ttl
+  ```
+- **Resposta**:
+    - `:1` se a operação foi bem-sucedida.
+    - `:0` se a chave não existe.
+
+---
+
+### `TTL`
+- **Descrição**: Retorna o tempo restante antes da expiração de uma chave.
+- **Uso**:
+  ```plaintext
+  TTL key
+  ```
+- **Resposta**:
+    - O tempo restante em segundos (`:N`).
+    - `:-1` se a chave não tem expiração.
+    - `:-2` se a chave não existe ou está expirada.
+
+---
+
+### `FLUSHALL`
+- **Descrição**: Remove todas as chaves do armazenamento.
+- **Uso**:
+  ```plaintext
+  FLUSHALL
+  ```
+- **Resposta**:
+    - `+OK` se bem-sucedido.
+
+---
+
+### `INFO`
+- **Descrição**: Exibe informações sobre o estado do servidor.
+- **Uso**:
+  ```plaintext
+  INFO
+  ```
+- **Resposta**:
+    - Informações detalhadas sobre uptime, número de chaves e uso de memória, no formato:
+      ```plaintext
+      # Server
+      uptime_in_seconds:<tempo>
+  
+      # Stats
+      number_of_keys:<número>
+  
+      # Memory
+      used_memory:<uso>
+
+
+
+## 📂 Estrutura de diretórios
 ```
 m-storage/
 ├── cmd/
@@ -57,7 +171,7 @@ m-storage/
 
 ```
 
-## 🛠️ Como Rodar o Projeto
+## 🛠️ Como rodar o projeto
 1. Clone o repositório:
 ```bash
 git clone https://github.com/seu-usuario/m-storage.git
@@ -86,6 +200,3 @@ Para habilitar conexões seguras com TLS:
 ```bash
 go run cmd/main.go --tls --cert=certs/server.crt --key=certs/server.key --ca=certs/ca.crt 
 ```
-
-## 📝 Licença
-Este projeto é distribuído sob a licença MIT. Consulte o arquivo `LICENSE` para mais detalhes.
