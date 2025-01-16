@@ -1,5 +1,6 @@
 # M-Storage 
 ## Um Redis-like para propósitos educacionais
+![Console](documentation/console.png)
 
 M-Storage é um servidor Redis-like desenvolvido com **Golang**. Este projeto foi criado com o objetivo de aprendizado e exploração das funcionalidades básicas do Redis, incluindo comandos como `PING`, `SET`, `GET`, `DEL`, entre outros. Embora não seja uma implementação completa do Redis, ele suporta muitas de suas operações fundamentais e segue o protocolo RESP (Redis Serialization Protocol).
 
